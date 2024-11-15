@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <style type="text/css">
+            th {
+            padding: 0 25px;
+            }
+        </style>
+        <style type="text/css">
+            td {
+            padding: 0 25px;
+            }
+        </style>
+        <title>Positions</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="https://joaladwig.pythonanywhere.com/">Home</a>
+              <a class="navbar-brand" href="#">Positions</a>
+              <a class="navbar-brand" href="/positionsbysector">Positions by Sector</a>
+              <a class="navbar-brand" href="/transactions">Transactions</a>
+              <a class="navbar-brand" href="/securities">Securities List</a>
+              <a class="navbar-brand" href="/reset">Reset Transactions</a>
+            </div>
+          </div>
+        </nav>
+
+    <h3>Positions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Sector</th>
+                    <th>Shares</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pos in grouped_pos %}
+                <tr>
+                    <td>{{ pos.ticker }}</td>
+                    <td>{{ pos.sector }}</td>
+                    <td align="right">{{ pos.Total_Shares }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</body>
+</html>

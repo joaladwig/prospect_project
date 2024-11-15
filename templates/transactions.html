@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <style type="text/css">
+            th {
+            padding: 0 25px;
+            }
+        </style>
+        <style type="text/css">
+            td {
+            padding: 0 25px;
+            }
+        </style>
+        <title>Transactions</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="https://joaladwig.pythonanywhere.com/">Home</a>
+              <a class="navbar-brand" href="/positions">Positions</a>
+              <a class="navbar-brand" href="/positionsbysector">Positions by Sector</a>
+              <a class="navbar-brand" href="#">Transactions</a>
+              <a class="navbar-brand" href="/securities">Securities List</a>
+              <a class="navbar-brand" href="/reset">Reset Transactions</a>
+            </div>
+          </div>
+        </nav>
+
+    <h3>Transactions</h3>
+    <h5>Please fill out the form below to enter new transactions.</h5>
+    <h5>Valid tickers can be found on the Securities List page linked above. Invalid tickers will not be stored.</h5>
+    <h5>Choose "Buy" or "Sell" from the dropdown menu. The negative symbol will appear in the table below and for net negative positions.</h5>
+    <h5>Share count and price have ten digits of precision with two decimal places.</h5>
+    <h5>You can short a stock by design. This feature can be removed if desired.</h5>
+    <form action="{{ url_for('transactions') }}" method="post">
+        <table>
+            <tr>
+                <td>Ticker</td>
+                <td><input type="text" name="ticker" placeholder="MSFT" required maxlength="5"></td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>
+                    <select name="direction" id="dierction" required>
+                        <option value="BUY">Buy</option>
+                        <option value="SELL">Sell</option>
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Shares</td>
+                <td><input type="number" name="shares" placeholder="100" step="0.01" min="0" max="99999999.99" required></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="number" name="price" placeholder="245.88" step="0.01" min="0" max="99999999.99" required></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Submit</button</td>
+            </tr>
+        </table>
+    </form>
+        <table>
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Trade Type</th>
+                <th>Shares</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.ticker }}</td>
+                <td>{{ tx.direction.value }}</td>
+                <td align="right">{{ tx.shares }}</td>
+                <td align="right">{{ tx.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
